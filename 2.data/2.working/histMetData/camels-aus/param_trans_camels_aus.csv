@@ -1,0 +1,17 @@
+﻿var_camels,longname_camels,units_camels,scale_camels,offset_camels,var_CMIP6,units_CMIP6,Calculation,ratio,pre_adjust_scale,pre_adjust_offset,bias_correct_target,final_var,min_theo,max_theo
+precipitation_AGCD,"Daily precipitation from Australian Gridded Climate Data v1.0.1 (Evans et al., 2020)",mm,10,0,pr,kg m-2 s-1,1,T,86400,0,T,T,0,3276.7
+precipitation_SILO,"Daily precipitation from Scientific Information for Land Owners (Jeffrey et al., 2001)",mm,10,0,pr,kg m-2 s-1,1,T,86400,0,T,T,0,3276.7
+et_short_crop_SILO,"FAO56 short crop Potential evapotranspiration from  Scientific Information for Land Owners (Jeffrey et al., 2001)",mm,100,0,petfao56,mm,petfao_func,T,1,0,T,T,0,Inf
+et_morton_point_SILO,"Morton's (1983) Point (potential) evapotranspiration from Scientific Information for Land Owners (Jeffrey et al., 2001)",mm,100,0,et_morton_potential,mm,petmorton_func,T,1,0,T,T,0,Inf
+et_morton_wet_SILO,"Morton's (1983) wet-environment potential evapotranspiration from Scientific Information for Land Owners (Jeffrey et al., 2001)",mm,100,0,et_morton_wet,mm,petmorton_func,T,1,0,T,T,0,Inf
+et_morton_actual_SILO,"Morton's (1983) areal actual  evapotranspiration from Scientific Information for Land Owners (Jeffrey et al., 2001)",mm,100,0,et_morton_actual,mm,petmorton_func,T,1,0,T,T,0,Inf
+tmax_AGCD,"Daily maximum temperature from Australian Gridded Climate Data v1.0.1 (Evans et al., 2020)",°C,100,0,tasmax,K,1,F,1,-273.15,T,T,-100,100
+tmin_AGCD,"Daily minimum temperature from Australian Gridded Climate Data v1.0.1 (Evans et al., 2020)",°C,100,0,tasmin,K,1,F,1,-273.15,F,T,-100,tmax_AGCD
+tmax_SILO,"Daily maximum temperature from Scientific Information for Land Owners (Jeffrey et al., 2001)",°C,100,0,tasmax,K,1,F,1,-273.15,T,T,-100,100
+tmin_SILO,"Daily minimum temperature from Scientific Information for Land Owners (Jeffrey et al., 2001)",°C,100,0,tasmin,K,1,F,1,-273.15,F,T,-100,tmax_SILO
+radiation_SILO,"Solar radiation from  Scientific Information for Land Owners (Jeffrey et al., 2001)",MJ m-2,100,0,rsds,W m-2,1,T,0.0864,0,T,T,0,1400
+mslp_SILO,"Mean sea-level pressure from  Scientific Information for Land Owners (Jeffrey et al., 2001)",hPa,100,1000,psl,Pa,1,F,0.01,0,T,T,0,Inf
+vp_SILO,"Vapour pressure from Scientific Information for Land Owners (Jeffrey et al., 2001)",hPa,100,0,vp,Pa,1,T,0.01,0,T,T,0,svp_SILO
+vp_deficit_SILO,"Vapour pressure deficit from Scientific Information for Land Owners (Jeffrey et al., 2001)",hPa,100,0,vp,Pa,1,T,0.01,0,F,T,0,svp_SILO
+tmin_AGCDDiff,"Daily minimum minus maximum temperature from Australian Gridded Climate Data v1.0.1 (Evans et al., 2020)",°C,100,0,tasminDtasmax,K,1,F,1,0,T,F,-Inf,0
+tmin_SILODiff,"Daily minimum minus maximum temperature from Scientific Information for Land Owners (Jeffrey et al., 2001)",°C,100,0,tasminDtasmax,K,1,F,1,0,T,F,-Inf,0

@@ -1,0 +1,14 @@
+﻿var_ERA5_Land,units_ERA5_Land,scale_ERA5_Land,offset_ERA5_Land,var_CMIP6,units_CMIP6,Calculation,ratio,pre_adjust_scale,pre_adjust_offset,bias_correct_target,final_var,min_theo,max_theo,units_camels,longname_camels
+surface_net_solar_radiation_mean,Surface net solar radiation [W/m2],10,0,rss,W m-2,rsds-rsus,T,1,0,T,T,0,1400,W m-2,Surface net solar radiation
+surface_net_thermal_radiation_mean,Surface net thermal radiation [W/m2],10,0,rls,W m-2,rlds-rlus,F,1,0,T,T,-Inf,Inf,W m-2,Surface net thermal radiation
+surface_pressure_mean,Surface pressure [kPa],100,100,ps,Pa,ps_func,F,0.001,0,T,T,0,Inf,kPa,Surface Pressure
+temperature_2m_mean,2m air temperature [°C],100,0,tas,K,1,F,1,-273.15,T,T,-100,100,°C,2m air temperature
+wind_10m_mean,wind speed at 10 m [m/s],100,0,sfcWind,m s-1,1,T,1,0,T,T,0,Inf,m s-1,wind speed at 10 m
+temperature_2m_min_diff,2m minimum minus mean air temperature [°C],100,0,tasminD,K,1,F,1,0,T,F,-Inf,0,°C,2m minimum minus mean air temperature
+temperature_2m_max_diff,2m max minus mean air temperature [°C],100,0,tasmaxD,K,1,F,1,0,T,F,0,Inf,°C,2m max minus mean air temperature
+total_precipitation_sum,Total precipitation [mm],10,0,pr,kg m-2 s-1,1,T,86400,0,T,T,0,3276.7,mm,Total precipitation
+snow_depth_water_equivalent_mean,Snow-Water-Equivalent [mm],10,0,snw,kg m-2,1,T,1,0,T,T,0,Inf,mm,snow-water-equivalent
+potential_evaporation_sum_FAO_PENMAN_MONTEITH,Potential Evaporation [mm] (FAO Penman-Monteith computed from ERA5-Land inputs),100,0,petfao56,mm,1,T,1,0,T,T,0,Inf,mm,Potential Evaporation (FAO Penman-Monteith)
+dewpoint_temperature_2m_mean,Dew point temperature [°C],100,0,tdps,K,tdp_func,F,1,-273.15,T,T,-273,temperature_2m_mean,°C,Dew point temperature
+temperature_2m_min,2m minimum air temperature [°C],100,0,tasmin,K,1,F,1,0,F,T,-100,temperature_2m_mean,°C,2m minimum air temperature
+temperature_2m_max,2m max air temperature [°C],100,0,tasmax,K,1,F,1,0,F,T,temperature_2m_mean,100,°C,2m max air temperature

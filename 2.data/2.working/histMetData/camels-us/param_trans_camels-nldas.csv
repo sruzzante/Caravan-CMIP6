@@ -1,0 +1,8 @@
+﻿var_camels,new_var_camels,longname_camels,units_camels,scale_camels,offset_camels,var_CMIP6,units_CMIP6,Calculation,ratio,pre_adjust_scale,pre_adjust_offset,bias_correct_target,final_var,min_theo,max_theo
+rsds,-,Surface downwelling shortwave radiation,W m-2,10,0,rsds,W m-2,1,T,1,0,T,F,0,1400
+tmax.C.,tmeanC.nldas,2m mean air temperature (NLDAS forcing tmax and tmin are actually mean temperature in CAMELS),°C,100,0,tas,K,1,F,1,-273.15,T,T,-100,100
+prcp.mm.day.,prcp.mm.day.nldas,Total precipitation,mm,10,0,pr,kg m-2 s-1,1,T,86400,0,T,T,0,3276.7
+vp.Pa.,vp.Pa.nldas,Water vapor pressure,Pa,1,0,vp,Pa,vp_func,T,1,0,T,T,0,svp.Pa.
+tmin.C.,-,2m mean air temperature (NLDAS forcing tmax and tmin are actually mean temperature in CAMELS),°C,100,0,tas,K,1,F,1,-273.15,F,T,tmax.C.,tmax.C.
+srad.W.m2.,srad.W.m2.nldas,"Incident shortwave radiation flux density in watts per square meter, taken as an average over the daylight period of the day.",W m-2,10,0,,,,,,,F,T,0,1400
+dayl.s.,-,Duration of the daylight period in seconds per day. This calculation is based on the period of the day during which the sun is above a hypothetical flat horizon.,s,1,-30000,,,,,,,F,T,0,86400

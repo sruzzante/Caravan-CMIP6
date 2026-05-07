@@ -1,0 +1,10 @@
+﻿LSH,precip,pet,country
+camels,prcp.mm.day.daymet,,United States of America
+camels-aus,precipitation_AGCD,et_short_crop_SILO,Australia
+camels-br,p_mswep,pet_gleam,Brazil
+camels-ch,precipitation.mm.d.,pet_sim.mm.d.,Switzerland
+camels-cl,precip_mswep_mm_day,pet_hargreaves_mm_day,Chile
+camels-de,precipitation_mean,pet_hargreaves,Germany
+camels-gb,precipitation_haduk,pet_hydrope,United Kingdom
+camels-ind,prcp.mm.day.,pet.mm.day.,India
+camels-col,pr,poten_evapo,Colombia
