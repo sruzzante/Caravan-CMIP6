@@ -1,0 +1,8 @@
+﻿var_camels,longname_camels,units_camels,scale_camels,offset_camels,var_CMIP6,units_CMIP6,Calculation,ratio,pre_adjust_scale,pre_adjust_offset,bias_correct_target,final_var,min_theo,max_theo
+pr,Daily precipitation of catchment,mm,10,0,pr,kg m-2 s-1,1,T,86400,0,T,T,0,3276.7
+t_mean,Daily maximum temperature of catchment,°C,100,0,tas,K,1,F,1,-273.15,T,T,-100,100
+t_maxDiff,Daily maximum minus mean temperature of catchment,°C,100,0,tasmaxD,K,1,F,1,0,T,F,0,100
+t_minDiff,Daily minimum minus mean temperature of catchment,°C,100,0,tasminD,K,1,F,1,0,T,F,-100,0
+poten_evapo,Daily potential evapotranspiration of catchment,mm,100,0,petharg,mm,hargreaves,T,1,0,T,T,0,Inf
+t_min,Daily minimum temperature of catchment,°C,100,0,tasmin,K,1,F,1,-273.15,F,T,-100,t_mean
+t_max,Daily maximum temperature of catchment,°C,100,0,tasmax,K,1,F,1,-273.15,F,T,t_mean,100

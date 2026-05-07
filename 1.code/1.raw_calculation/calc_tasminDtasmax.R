@@ -1,0 +1,209 @@
+args = commandArgs(trailingOnly=TRUE)
+it_split = 1
+numsplit = 5
+
+
+it_split = as.integer(args[1])
+numsplit = as.integer(args[2])
+setwd("/home/ruzzante/projects/def-tgleeson/ruzzante/caravan-CMIP6/")
+# setwd(paste0(Sys.getenv("USERPROFILE"), "/OneDrive - University of Victoria/low-flows-BC/")) #Set the working directory
+
+
+suppressMessages(library(dplyr))
+suppressMessages(library(tidyr))
+suppressMessages(library(terra))
+suppressMessages(library(lubridate))
+suppressMessages(library(tictoc))
+# library(weathermetrics)
+library(stringr)
+library(ncdf4)
+source("1.code/utils.R")
+
+
+datasets<-readRDS("2.data/2.working/CMIP6_ESGF/datasets_v2.rds")
+
+datasets<-datasets%>%
+  mutate(
+    fileName = paste(
+      variable_id,"day",source_id,experiment_id,variant_label,
+      grid_label,".*.nc",
+      sep ="_"
+    ),
+    filePathExtracted = paste("/scratch/ruzzante/temp/CMIP6_ESGF_uncorrected",source_id,experiment_id,variable_id, sep= "/"),
+    
+    fileNameExtracted  =  paste(
+      variable_id,"day",source_id,
+      experiment_id,variant_label,
+      grid_label,"uncorrected.nc",
+      
+      sep ="_"
+    ))%>%
+  mutate(fileName = case_when(str_detect(src_folder,"CFday")~str_replace(fileName,"day","CFday"),
+                              !str_detect(src_folder,"CFday") ~fileName))
+
+
+datasets_wide<-datasets%>%
+  mutate(uncorrectedFile = paste(filePathExtracted,fileNameExtracted,sep = "/"))%>%
+  pivot_wider(id_cols = c(project,activity_id,institution_id,source_id,experiment_id,variant_label,frequency,grid_label),
+              values_from =uncorrectedFile,
+              names_from = variable_id)
+
+
+# 
+# datasets_wide = filter(datasets_wide,source_id %in% "UKESM1-0-LL"|
+#                          (source_id == "CanESM5" & variant_label =="r8i1p1f1" & experiment_id =="ssp126"))
+
+datasets_wide$i<-1:nrow(datasets_wide)
+# datasets_wide<-filter(datasets_wide,!is.na(hurs)&!is.na(tas))
+# datasets_wide = datasets_wide%>%filter(source_id == "TaiESM1")
+if(numsplit>1){
+  x<-split(1:nrow(datasets_wide),cut(seq_along(1:nrow(datasets_wide)), breaks = numsplit, labels = FALSE))
+  datasets_wide<-datasets_wide[x[[it_split]],]
+  
+}
+
+for(it in 1:nrow(datasets_wide)){
+  
+  for(it_sub in 1){
+    
+    print(sprintf( "Beginning dataset row %d, %s, watershed subset %d",datasets_wide$i[it],datasets_wide$tas[it],it_sub))
+    
+    
+    targetDir = sprintf("/scratch/ruzzante/temp/CMIP6_ESGF_uncorrected/%s/%s/tasminDtasmax",datasets_wide$source_id[it],datasets_wide$experiment_id[it])
+    
+    if(!dir.exists(targetDir)){
+      dir.create(targetDir,recursive = T)
+    } # dir.create(sprintf("/scratch/ruzzante/temp/CMIP6_ESGF_uncorrected/%s/%s/rls",datasets_wide$source_id[it],datasets_wide$experiment_id[it]))
+    # 
+    
+    flNm = paste("/scratch/ruzzante/temp/CMIP6_ESGF_uncorrected",
+                 datasets_wide$source_id[it],
+                 datasets_wide$experiment_id[it],
+                 "tasminDtasmax",
+                 paste(
+                   "tasminDtasmax",
+                   "day",
+                   datasets_wide$source_id[it],
+                   datasets_wide$experiment_id[it],
+                   datasets_wide$variant_label[it],
+                   datasets_wide$grid_label[it],
+                   "uncorrected",
+                   paste0(it_sub,
+                          ".nc"),
+                   
+                   sep ="_"
+                 ),
+                 sep= "/"
+    )
+    if(file.exists(flNm)){
+       print("already calculated, skipping")
+        next
+      # x_nc = nc_open(flNm)
+      # if(ncatt_get(x_nc,"id","gauge_id")$hasatt){
+      #   nc_close(x_nc)
+      #  
+      # }else{
+      #   nc_close(x_nc)
+      # }
+      
+    }
+    
+    tasmax = nc_open(datasets_wide$tasmax[it]%>%str_replace("d.nc",sprintf("d_%d.nc",it_sub)))
+    
+    tasmin = nc_open(datasets_wide$tasmin[it]%>%str_replace("d.nc",sprintf("d_%d.nc",it_sub)))
+    
+    
+    
+    tasmax_mat<-ncvar_get(tasmax,varid = "tasmax")
+    # tasC_mat = tas_mat-273.15
+    tasmin_mat<-ncvar_get(tasmin,varid = "tasmin")
+    
+    tasminDtasmax_mat = (tasmin_mat-tasmax_mat)
+    
+    
+    tasminDtasmax_mat = (tasminDtasmax_mat-offsets["tasminDtasmax"])*fctrs["tasminDtasmax"]
+    
+    # create tasminD ncdf file
+    # get attributes from tas file
+    
+    cal<-tasmax$dim$time$calendar
+    
+    time_dim <- tasmax$dim$time
+    
+    gauge_dim <- tasmax$dim$id
+    
+    if(cal=="360_day"){
+      chunk_size = 3600
+    }else{
+      chunk_size = 3650
+    }
+    
+    
+    var_def <- ncvar_def(
+      name  = "tasminDtasmax",
+      units = "K",
+      dim   = list(gauge_dim, time_dim),
+      missval = -32768,
+      longname = "Difference between daily minimum and daily maximum temperature",
+      prec = "short",
+      shuffle = T,
+      compression = 9,
+      chunk = c(10, chunk_size)
+    )
+    
+    tasminDtasmax <- nc_create(paste("/scratch/ruzzante/temp/CMIP6_ESGF_uncorrected",
+                                     datasets_wide$source_id[it],
+                                     datasets_wide$experiment_id[it],
+                                     "tasminDtasmax",
+                                     paste(
+                                       "tasminDtasmax",
+                                       "day",
+                                       datasets_wide$source_id[it],
+                                       datasets_wide$experiment_id[it],
+                                       datasets_wide$variant_label[it],
+                                       datasets_wide$grid_label[it],
+                                       "uncorrected",
+                                       paste0(it_sub,
+                                              ".nc"),
+                                       
+                                       sep ="_"
+                                     ),
+                                     sep= "/"
+    ),
+    vars = list(var_def))
+    
+    ncvar_put(tasminDtasmax, var_def, tasminDtasmax_mat)
+    
+    
+    ncatt_put(tasminDtasmax, "id", "gauge_id", ncatt_get(tasmin,varid = "id",attname = "gauge_id")$value)
+    ncatt_put(tasminDtasmax, 0, "institution_id",ncatt_get(tasmin,0,attname = "institution_id")$value)
+    ncatt_put(tasminDtasmax, 0, "institution",ncatt_get(tasmin,0,attname = "institution")$value)
+    ncatt_put(tasminDtasmax, 0, "source_id",ncatt_get(tasmin,0,attname = "source_id")$value)
+    ncatt_put(tasminDtasmax, 0, "source",ncatt_get(tasmin,0,attname = "source")$value)
+    ncatt_put(tasminDtasmax, 0, "experiment_id",ncatt_get(tasmin,0,attname = "experiment_id")$value)
+    ncatt_put(tasminDtasmax, 0, "variant_label", ncatt_get(tasmin,0,attname = "variant_label")$value)
+    ncatt_put(tasminDtasmax, 0, "grid_label",ncatt_get(tasmin,0,attname = "grid_label")$value)
+    ncatt_put(tasminDtasmax, 0, "grid",ncatt_get(tasmin,0,attname = "grid")$value)
+    
+    
+    ncatt_put(tasminDtasmax, 0, "license",ncatt_get(tasmin,0,attname = "license")$value)
+    ncatt_put(tasminDtasmax, 0, "Conventions",ncatt_get(tasmin,0,attname = "Conventions")$value)
+    ncatt_put(tasminDtasmax, 0, "contact",ncatt_get(tasmin,0,attname = "Contact")$value)
+    ncatt_put(tasminDtasmax, 0, "further_info_url",ncatt_get(tasmin,0,attname = "further_info_url")$value)
+    
+    ncatt_put(tasminDtasmax, "tasminDtasmax", "scale_factor", 1/fctrs["tasminDtasmax"])
+    ncatt_put(tasminDtasmax,"tasminDtasmax", "add_offset", offsets["tasminDtasmax"])
+    
+    
+    
+    nc_close(tasmax)
+    
+    nc_close(tasmin)
+    
+    nc_close(tasminDtasmax)
+  }
+}
+
+
+
+

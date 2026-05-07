@@ -1,0 +1,13 @@
+﻿var_camels,longname_camels,units_camels,scale_camels,offset_camels,var_CMIP6,units_CMIP6,Calculation,ratio,pre_adjust_scale,pre_adjust_offset,bias_correct_target,final_var,min_theo,max_theo
+prcp.mm.day.,precipitation,mm,10,0,pr,kg m-2 s-1,1,T,86400,0,T,T,0,3276.7
+tmax.C.Diff,maximum minus mean temperature,°C,100,0,tasmaxD,K,1,F,1,0,T,F,0,100
+tmin.C.Diff,minimum minus mean temperature,°C,100,0,tasminD,K,1,F,1,0,T,F,-100,0
+tmin.C.,minimum temperature,°C,100,0,tasmin,K,1,F,1,-273.15,F,T,-100,tavg.C.
+tmax.C.,maximum temperature,°C,100,0,tasmax,K,1,F,1,-273.15,F,T,tavg.C.,100
+tavg.C.,averaged temperature,°C,100,0,tas,K,1,F,1,-273.15,T,T,-100,100
+srad_lw.w.m2.,surface downward long-wave radiation flux,W m-2,10,0,rlds,W m-2,1,T,1,0,T,T,0,Inf
+srad_sw.w.m2.,surface downward short-wave radiation flux,W m-2,10,0,rsds,W m-2,1,T,1,0,T,T,0,1400
+wind.m.s.,averaged wind speed (10 m),m s-1,100,0,sfcWind,m s-1,1,T,1,0,T,T,0,Inf
+rel_hum...,relative humidity (2 m),%,100,0,hurs,%,1,F,1,0,T,T,0,100
+pet.mm.day.,potential evapotranspiration (Singer),mm d-1,100,0,petfao56,mm d-1,1,T,1,0,T,T,0,Inf
+pet_gleam.mm.day.,potential evapotranspiration (GLEAM),mm d-1,100,0,petpriestly,mm d-1,1,T,1,0,T,T,0,Inf

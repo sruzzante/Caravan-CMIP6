@@ -1,0 +1,9 @@
+﻿var_camels,longname_camels,units_camels,scale_camels,offset_camels,var_CMIP6,units_CMIP6,Calculation,ratio,pre_adjust_scale,pre_adjust_offset,bias_correct_target,final_var,min_theo,max_theo
+precipitation_cehgear,Daily total precipitation from Centre for Ecology and Hydrology Gridded Estimates of Areal Rainfall dataset (Keller et al. 2015 and Tanguy 2021),mm,10,0,pr,kg m-2 s-1,1,T,86400,0,T,T,0,3276.7
+precipitation_haduk,Daily total precipitation from HadUK-Grid dataset (Hollis et al. 2019),mm,10,0,pr,kg m-2 s-1,1,T,86400,0,T,T,0,3276.7
+pet_chess,"Potential Evapotranspiration from the Climate Hydrology and Ecology research Support
+System Potential Evapotranspiration dataset (Robinson et al. 2016)",mm,100,0,petfao56,mm,penman-monteith,T,1,0,T,T,0,Inf
+pet_hydrope,Potential Evapotranspiration from the Hydro-PE HadUK-grid dataset (Brown 2022 and Robinson et al. 2023),mm,100,0,petfao56,mm,penman-monteith,T,1,0,T,T,0,Inf
+temperature_chess,"Daily mean temperature from Climate Hydrology and Ecology research Support
+System Meteorology dataset (Robinson et al. 2017)",°C,100,0,tas,K,1,F,1,-273.15,T,T,-100,100
+temperature_haduk,Daily mean temperature from the HadUK-Grid dataset (Hollis et al. 2019),°C,100,0,tas,K,1,F,1,-273.15,T,T,-100,100

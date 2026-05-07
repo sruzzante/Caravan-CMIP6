@@ -1,0 +1,19 @@
+﻿var_camels,longname_camels,units_camels,scale_camels,offset_camels,var_CMIP6,units_CMIP6,Calculation,ratio,pre_adjust_scale,pre_adjust_offset,bias_correct_target,final_var,min_theo,max_theo
+p_brdwgd,Daily precipitation from Brazilian Daily Weather Gridded Data(BR-DWGD) v3.2.3,mm,10,0,pr,kg m-2 s-1,1,T,86400,0,T,T,0,3276.7
+p_chirps,Daily precipitation from CHIRPS v2.0,mm,10,0,pr,kg m-2 s-1,1,T,86400,0,T,T,0,3276.7
+p_cpc,Daily precipitation from CPC,mm,10,0,pr,kg m-2 s-1,1,T,86400,0,T,T,0,3276.7
+p_era5land,Daily precipitation from ERA5-Land,mm,10,0,pr,kg m-2 s-1,1,T,86400,0,T,T,0,3276.7
+p_mswep,Daily precipitation from MSWEP v2.8,mm,10,0,pr,kg m-2 s-1,1,T,86400,0,T,T,0,3276.7
+eto_brdwgd,Reference evapotranspiration from Brazilian Daily Weather Gridded Data(BR-DWGD) v3.2.3,mm,100,0,petfao56,mm,petfao_func,T,1,0,T,T,0,Inf
+pet_gleam,Potential evapotranspiration from GLEAM v4.2a,mm,100,0,petfao56,mm,petfao_func,T,1,0,T,T,0,Inf
+tmax_cpc,Daily maximum temperature from CPC,°C,100,0,tasmax,K,1,F,1,-273.15,T,T,-100,100
+tmax_era5land,Daily maximum temperature from ERA5LAND,°C,100,0,tasmax,K,1,F,1,-273.15,F,T,tmean_era5land,100
+tmax_brdwgd,Daily maximum temperature from Brazilian Daily Weather Gridded Data(BR-DWGD) v3.2.3,°C,100,0,tasmax,K,1,F,1,-273.15,T,T,-100,100
+tmean_era5land,Daily mean temperature from ERA5LAND,°C,100,0,tas,K,1,F,1,-273.15,T,T,-100,100
+tmin_cpc,Daily minimum temperature from CPC,°C,100,0,tasmin,K,1,F,1,-273.15,F,T,-100,tmax_cpc
+tmin_era5land,Daily minimum temperature from ERA5LAND,°C,100,0,tasmin,K,1,F,1,-273.15,F,T,-100,tmean_era5land
+tmin_brdwgd,Daily minimum temperature from Brazilian Daily Weather Gridded Data(BR-DWGD) v3.2.3,°C,100,0,tasmin,K,1,F,1,-273.15,F,T,-100,tmax_brdwgd
+tmax_era5landDiff,Daily maximum minus mean temperature from ERA5LAND,°C,100,0,tasmaxD,K,1,F,1,0,T,F,0,100
+tmin_cpcDiff,Daily maximum temperature from CPC,°C,100,0,tasminDtasmax,K,1,F,1,0,T,F,-100,0
+tmin_era5landDiff,Daily maximum temperature from ERA5LAND,°C,100,0,tasminD,K,1,F,1,0,T,F,-100,0
+tmin_brdwgdDiff,Daily maximum temperature from Brazilian Daily Weather Gridded Data(BR-DWGD) v3.2.3,°C,100,0,tasminDtasmax,K,1,F,1,0,T,F,-100,0
